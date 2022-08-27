@@ -46,9 +46,9 @@ Disconnect from databases:
 
 ### What to expect
 
-The first time you try to connect to a database, you may have to answer some questions about the type of database (depending on what dbtype you're connecting to).
+The first time you try to connect to a database, you may have to answer some questions about the database (depending on the database type you're connecting to).
 
-Once your configuration and credentials are set, you will not have to re-enter them unless you set the argument `from_scratch = TRUE` (which deletes your existing configuraion and credentials for the given database and prompts you to supply updated information.
+Once you've setup the configuration, you will not have to re-enter host/port/creds unless you set the argument `from_scratch = TRUE`. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.
 
 ## Quick start
 
