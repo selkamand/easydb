@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# easydb
+# easydb \<a href=“<https://selkamand.github.io/easydb/>”<img src="man/figures/logo.png" align="right" height="104"/></a>
 
 <!-- badges: start -->
 
