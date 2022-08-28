@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# easydb \<a href="<https://selkamand.github.io/easydb/>"<img src="man/figures/logo.png" align="right" height="104"/></a>
+# easydb <a href="https://selkamand.github.io/easydb/"><img src="man/figures/logo.png" align="right" height="104"/></a>
 
 <!-- badges: start -->
 
