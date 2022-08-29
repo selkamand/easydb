@@ -263,7 +263,7 @@ utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
   }
 
   # If db doesn't already have config entry - ask user to make one
-  user_wants_to_create_config <- utils::askYesNo(msg = "Couldnt find an existing config entry for database. Do you want to create a new configuration entry?")
+  user_wants_to_create_config <- utils::askYesNo(msg = "Couldnt find an existing config entry for database.\nDo you want to create a new configuration entry?")
 
   if (is.na(user_wants_to_create_config) | !user_wants_to_create_config) {
     cli::cli_abort("User chose not to create a config entry and no config file exists so quitting early")
@@ -508,9 +508,11 @@ utils_database_read_yaml <- function(dbname, file = config_filepath()) {
 utils_database_already_in_yaml <- function(dbname, file = config_filepath()) {
   assertthat::assert_that(is.character(dbname))
   assertthat::assert_that(assertthat::is.string(file))
-  assertthat::assert_that(file.exists(file))
+  #assertthat::assert_that(file.exists(file))
 
   # cli::cli_alert_info("Checking if an entry for database: {dbname} already exists in config file {file}")
+
+  if(!file.exists(file)) { return(FALSE) }
 
   db_config <- yaml::read_yaml(file = file)
 
