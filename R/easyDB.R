@@ -450,9 +450,9 @@ utils_database_write_yaml <- function(dbname, driver, creds_required = FALSE, po
     "driver" = driver,
     "port" = port,
     "host" = host,
-    "ssl-cert" = ssl_cert,
+    "ssl_cert" = ssl_cert,
     "ssl_key" = ssl_key,
-    "ssl-ca" = ssl_ca,
+    "ssl_ca" = ssl_ca,
     "creds_required" = creds_required # add new db paramaters here
   ))
   names(db_entry) <- dbname
