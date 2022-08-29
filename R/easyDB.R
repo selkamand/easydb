@@ -52,8 +52,10 @@ easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch
   cli::cli_h1("Credentials")
 
   # Override creds_required variable for sqlite databses
-  if (config$creds_required)
+  if (config$creds_required){
+
     creds <- utils_database_get_or_set_creds(dbname = dbname)
+  }
   else{
     cli::cli_alert_info("No credentials required, skipping credential retrieval.")
     cli::cli_alert_info("If your database requires a username & password please rerun with {.code creds_required = TRUE}")
@@ -187,8 +189,8 @@ assert_config_file_appropriate <- function(file){
 utils_database_get_or_set_creds <- function(dbname) {
   assertthat::assert_that(assertthat::is.string(dbname))
 
-  dbname_found <- dbname %in% keyring::key_list()[["service"]]
-  username <- keyring::key_list()[["username"]][keyring::key_list()[["service"]] == dbname]
+  dbname_found <- dbname %in% keyring::key_list(dbname)[["service"]]
+  username <- keyring::key_list(dbname)[["username"]][keyring::key_list(dbname)[["service"]] == dbname]
   username_found <- length(username) == 1
 
   multiple_usernames_found <- length(username) > 1
@@ -202,7 +204,7 @@ utils_database_get_or_set_creds <- function(dbname) {
   if (!dbname_found | !username_found) {
     cli::cli_alert_info("Existing credential set not found")
 
-    create_new_passcode <- utils::askYesNo(msg = "Existing credentials not found. Do you want to add a new password?")
+    create_new_passcode <- utils::menu(title = "Existing credentials not found. Do you want to add a new password?", choices = c("Yes", "No"))
 
     if (is.na(create_new_passcode) | create_new_passcode == FALSE) {
       cli::cli_alert_info("User chose not to create a new passcode\n\n")
@@ -339,7 +341,7 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
 
   # SSL
   if(ask_ssl){
-    ssl_required <- utils::askYesNo("Do you need to point to SSL certificates?")
+    ssl_required <- utils::menu(title="Do you need to point to SSL certificates?", choices = c("Yes", "No"))
 
     if (ssl_required) {
       ssl_cert <- utils_file_choose_looped("Please select your SSL Certificate (*.pem).")
