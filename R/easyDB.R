@@ -202,7 +202,7 @@ utils_database_get_or_set_creds <- function(dbname) {
   if (!dbname_found | !username_found) {
     cli::cli_alert_info("Existing credential set not found")
 
-    create_new_passcode <- utils::askYesNo(msg = "Existing credentials not found. Do you want to add a new password?", default = FALSE)
+    create_new_passcode <- utils::askYesNo(msg = "Existing credentials not found. Do you want to add a new password?")
 
     if (is.na(create_new_passcode) | create_new_passcode == FALSE) {
       cli::cli_alert_info("User chose not to create a new passcode\n\n")
@@ -339,7 +339,7 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
 
   # SSL
   if(ask_ssl){
-    ssl_required <- utils::askYesNo("Do you need to point to SSL certificates?", default = "No")
+    ssl_required <- utils::askYesNo("Do you need to point to SSL certificates?")
 
     if (ssl_required) {
       ssl_cert <- utils_file_choose_looped("Please select your SSL Certificate (*.pem).")
