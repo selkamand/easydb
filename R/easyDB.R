@@ -65,7 +65,6 @@ easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch
   # Connections takes different arguments depending on driver function ... so we need to build a separate call
 
   if (driver == "mysql") {
-    browser()
     connection <- DBI::dbConnect(
       drv = drv,
       dbname = dbname,
@@ -289,7 +288,6 @@ utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
     append = TRUE
   )
 
-  #browser()
   return(config_list)
 }
 
@@ -309,13 +307,13 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
   else if (driver == "postgresql") {
     ask_host = TRUE
     ask_port = TRUE
-    ask_ssl = TRUE
+    ask_ssl = FALSE
     ask_if_creds_required = TRUE
   }
   else if (driver == "mysql") {
     ask_host = TRUE
     ask_port = TRUE
-    ask_ssl = FALSE
+    ask_ssl = TRUE
     ask_if_creds_required = TRUE
   }
   else {
@@ -344,9 +342,9 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
     ssl_required <- utils::askYesNo("Do you need to point to SSL certificates?", default = "No")
 
     if (ssl_required) {
-      ssl_cert <- utils_user_input_retrieve_free_text("Path to SSL Certificate (*.pem): ", default = NULL, type = "string")
-      ssl_key <- utils_user_input_retrieve_free_text("Path to Private SSL Key (*.pem): ", default = NULL, type = "string")
-      ssl_ca <- utils_user_input_retrieve_free_text("Path to CA certificate (*.pem): ", default = NULL, type = "string")
+      ssl_cert <- utils_file_choose_looped("Please select your SSL Certificate (*.pem).")
+      ssl_key <- utils_file_choose_looped("Please select your Private SSL Key (*.pem).")
+      ssl_ca <-  utils_file_choose_looped("Please select your CA certificate (*.pem).")
     } else {
       ssl_cert <- NULL
       ssl_key <- NULL
@@ -627,4 +625,17 @@ utils_driver_name_to_function <- function(driver) {
   }
 
   return(drv)
+}
+
+
+utils_file_choose_looped <- function(prompt){
+  readline(prompt = paste0(prompt, "Press enter to continue", collapse = ""))
+  f = tryCatch(expr = {
+      file.choose()
+    },
+    error = function(err){
+      return(utils_file_choose_looped())
+    })
+
+  return(f)
 }
