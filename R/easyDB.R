@@ -631,7 +631,7 @@ utils_driver_name_to_function <- function(driver) {
 
 
 utils_file_choose_looped <- function(prompt){
-  readline(prompt = paste0(prompt, "Press enter to continue", collapse = ""))
+  readline(prompt = paste0(prompt, " [Press enter to continue] ", collapse = ""))
   f = tryCatch(expr = {
       file.choose()
     },
