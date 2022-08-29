@@ -263,7 +263,7 @@ utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
   }
 
   # If db doesn't already have config entry - ask user to make one
-  user_wants_to_create_config <- utils::askYesNo(msg = "Couldnt find an existing config entry for database.\nDo you want to create a new configuration entry?")
+  user_wants_to_create_config <- utils::menu(title = "Couldn't find an existing config entry for database.\nDo you want to create a new configuration entry?", choices = c("Yes", "No"))
 
   if (is.na(user_wants_to_create_config) | !user_wants_to_create_config) {
     cli::cli_abort("User chose not to create a config entry and no config file exists so quitting early")
