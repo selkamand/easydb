@@ -343,7 +343,7 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
   if(ask_ssl){
     ssl_required <- utils::menu(title="Do you need to point to SSL certificates?", choices = c("Yes", "No"))
 
-    if (ssl_required) {
+    if (ssl_required == 1) {
       ssl_cert <- utils_file_choose_looped("Please select your SSL Certificate (*.pem).")
       ssl_key <- utils_file_choose_looped("Please select your Private SSL Key (*.pem).")
       ssl_ca <-  utils_file_choose_looped("Please select your CA certificate (*.pem).")
