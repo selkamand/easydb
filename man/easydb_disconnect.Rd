@@ -15,3 +15,13 @@ Invisibly returns TRUE
 \description{
 Simple wrapper around [DBI::dbDisconnect()]
 }
+\examples{
+if(interactive()) {
+  # Connect to SQLite database
+  path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
+  con <- easydb_connect(dbname = path_to_db)
+
+  # Disconnect from database when finished
+  easydb_disconnect(con)
+}
+}

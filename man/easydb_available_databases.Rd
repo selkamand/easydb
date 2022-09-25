@@ -10,7 +10,7 @@ easydb_available_databases(config_file = config_filepath())
 \item{config_file}{path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)}
 }
 \value{
-vector of database names
+database names (character vector)
 }
 \description{
 List databases with configuration details stored in a configuration file.

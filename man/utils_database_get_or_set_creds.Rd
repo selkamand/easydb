@@ -17,7 +17,10 @@ Retrieves credentials (username and password) from os credential store using key
 }
 \examples{
 \dontrun{
-creds <- util_get_database_creds(service = "R-keyring-test-service", username = "donaldduck")
+creds <- easydb:::util_get_database_creds(
+  service = "R-keyring-test-service",
+  username = "donaldduck"
+)
 creds$username
 creds$password
 }

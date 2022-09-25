@@ -15,12 +15,13 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()) {
+#'   # Connect to SQLite database
+#'   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
+#'   con <- easydb_connect(dbname = path_to_db)
 #'
-#' # Simple SQLite database
-#' path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-#' easydb_connect(dbname = path_to_db)
-#'
+#'   # Disconnect from database when finished
+#'   easydb_disconnect(con)
 #' }
 easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch = FALSE) {
 
@@ -115,7 +116,7 @@ easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch
 #'
 #' @return Invisibly returns TRUE
 #' @export
-#'
+#' @inherit easydb_connect examples
 easydb_disconnect <- function(connection){
   DBI::dbDisconnect(connection)
 }
@@ -127,7 +128,7 @@ easydb_disconnect <- function(connection){
 #'
 #' @inheritParams easydb_connect
 #'
-#' @return vector of database names
+#' @return database names (character vector)
 #' @export
 #'
 #' @examples
@@ -139,39 +140,29 @@ easydb_available_databases <- function(config_file = config_filepath()){
       To create one, use {.code easydb_connect(<dbname>)}.
       If you've already created one at a custom location, set argument {.field config_file = <path/to/config>} and try again")
 
+  config_file <- normalizePath(config_file, mustWork = FALSE)
+
   yaml_list <- yaml::read_yaml(config_file)
-  databases_described <- names(yaml_list)
-  names(databases_described) <- rep(">", times = length(databases_described))
+
+  if(!is.null(yaml_list)){
+    databases_described <- names(yaml_list)
+    names(databases_described) <- rep(">", times = length(databases_described))
+  }
+  else{
+    databases_described <- 'No database connections defined'
+    }
 
   cli::cli_h1('Databases:')
   cli::cli_bullets(databases_described)
 
   cli::cli_h1('Notes')
+  cli::cli_alert_info('Config file: {.path {config_file}}')
   cli::cli_alert_info("Add more database connections using {.code easydb_connect}")
 
   return(invisible(unname(databases_described)))
 }
 
-#' Default Config File
-#'
-#' Describe full path to default config file
-#'
-#' @return invisible returns the path to default config file (string)
-#' @export
-#'
-#' @examples
-#' easydb_default_config_filepath()
-easydb_default_config_filepath <- function(){
- path = normalizePath(config_filepath(), mustWork = FALSE)
 
- cli::cli_h1("Path")
- cli::cli_inform(path)
-
- cli::cli_h2("Notes")
- cli::cli_alert_info('To store config in other locations, use {.field config_file} argument')
-
- return(invisible(path))
-}
 # Config File Path -------------------------------------------------------------
 
 #' Default database configuration yaml
@@ -180,7 +171,7 @@ easydb_default_config_filepath <- function(){
 #' @export
 #'
 #' @examples
-#' config_filepath()
+#' easydb:::config_filepath()
 config_filepath <- function() {
   return("~/.easydb")
 }
@@ -236,7 +227,10 @@ assert_config_file_appropriate <- function(file){
 #'
 #' @examples
 #' \dontrun{
-#' creds <- util_get_database_creds(service = "R-keyring-test-service", username = "donaldduck")
+#' creds <- easydb:::util_get_database_creds(
+#'   service = "R-keyring-test-service",
+#'   username = "donaldduck"
+#' )
 #' creds$username
 #' creds$password
 #' }

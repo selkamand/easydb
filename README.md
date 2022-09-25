@@ -15,6 +15,12 @@ using R
 
 ## Installation
 
+Install from CRAN
+
+``` r
+install.packages('easydb')
+```
+
 You can install the development version of easydb like so:
 
 ``` r

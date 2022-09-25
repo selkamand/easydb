@@ -13,5 +13,5 @@ path to default config banner (string)
 Default database configuration yaml
 }
 \examples{
-config_filepath()
+easydb:::config_filepath()
 }

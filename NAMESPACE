@@ -3,6 +3,5 @@
 export(config_filepath)
 export(easydb_available_databases)
 export(easydb_connect)
-export(easydb_default_config_filepath)
 export(easydb_disconnect)
 export(supported_drivers)
