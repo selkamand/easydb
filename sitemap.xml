@@ -10,6 +10,12 @@
     <loc>https://selkamand.github.io/easydb/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://selkamand.github.io/easydb/articles/adding_db_support.html</loc>
+  </url>
+  <url>
+    <loc>https://selkamand.github.io/easydb/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://selkamand.github.io/easydb/authors.html</loc>
   </url>
   <url>
@@ -22,7 +28,13 @@
     <loc>https://selkamand.github.io/easydb/reference/config_filepath.html</loc>
   </url>
   <url>
+    <loc>https://selkamand.github.io/easydb/reference/easydb_available_databases.html</loc>
+  </url>
+  <url>
     <loc>https://selkamand.github.io/easydb/reference/easydb_connect.html</loc>
+  </url>
+  <url>
+    <loc>https://selkamand.github.io/easydb/reference/easydb_default_config_filepath.html</loc>
   </url>
   <url>
     <loc>https://selkamand.github.io/easydb/reference/easydb_disconnect.html</loc>
