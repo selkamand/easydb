@@ -55,8 +55,10 @@ easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch
   cli::cli_h1("Credentials")
 
   # Override creds_required variable for sqlite databses
-  if (config$creds_required)
+  if (config$creds_required){
+
     creds <- utils_database_get_or_set_creds(dbname = dbname)
+  }
   else{
     cli::cli_alert_info("No credentials required, skipping credential retrieval.")
     #cli::cli_alert_info("If your database requires a username & password please rerun with {.code creds_required = TRUE}")
@@ -241,8 +243,8 @@ assert_config_file_appropriate <- function(file){
 utils_database_get_or_set_creds <- function(dbname) {
   assertthat::assert_that(assertthat::is.string(dbname))
 
-  dbname_found <- dbname %in% keyring::key_list()[["service"]]
-  username <- keyring::key_list()[["username"]][keyring::key_list()[["service"]] == dbname]
+  dbname_found <- dbname %in% keyring::key_list(dbname)[["service"]]
+  username <- keyring::key_list(dbname)[["username"]][keyring::key_list(dbname)[["service"]] == dbname]
   username_found <- length(username) == 1
 
   multiple_usernames_found <- length(username) > 1
@@ -256,7 +258,7 @@ utils_database_get_or_set_creds <- function(dbname) {
   if (!dbname_found | !username_found) {
     cli::cli_alert_info("Existing credential set not found")
 
-    create_new_passcode <- utils::askYesNo(msg = "Existing credentials not found. Do you want to add a new password?", default = FALSE)
+    create_new_passcode <- utils::menu(title = "Existing credentials not found. Do you want to add a new password?", choices = c("Yes", "No"))
 
     if (is.na(create_new_passcode) | create_new_passcode == FALSE) {
       cli::cli_alert_info("User chose not to create a new passcode\n\n")
@@ -317,7 +319,7 @@ utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
   }
 
   # If db doesn't already have config entry - ask user to make one
-  user_wants_to_create_config <- utils::askYesNo(msg = "Couldnt find an existing config entry for database. Do you want to create a new configuration entry?")
+  user_wants_to_create_config <- utils::menu(title = "Couldn't find an existing config entry for database.\nDo you want to create a new configuration entry?", choices = c("Yes", "No"))
 
   if (is.na(user_wants_to_create_config) | !user_wants_to_create_config) {
     cli::cli_abort("User chose not to create a config entry and no config file exists so quitting early")
@@ -393,9 +395,9 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
 
   # SSL
   if(ask_ssl){
-    ssl_required <- utils::askYesNo("Do you need to point to SSL certificates?", default = "No")
+    ssl_required <- utils::menu(title="Do you need to point to SSL certificates?", choices = c("Yes", "No"))
 
-    if (ssl_required) {
+    if (ssl_required == 1) {
       ssl_cert <- utils_file_choose_looped("Please select your SSL Certificate (*.pem).")
       ssl_key <- utils_file_choose_looped("Please select your Private SSL Key (*.pem).")
       ssl_ca <-  utils_file_choose_looped("Please select your CA certificate (*.pem).")
@@ -562,9 +564,11 @@ utils_database_read_yaml <- function(dbname, file = config_filepath()) {
 utils_database_already_in_yaml <- function(dbname, file = config_filepath()) {
   assertthat::assert_that(is.character(dbname))
   assertthat::assert_that(assertthat::is.string(file))
-  assertthat::assert_that(file.exists(file))
+  #assertthat::assert_that(file.exists(file))
 
   # cli::cli_alert_info("Checking if an entry for database: {dbname} already exists in config file {file}")
+
+  if(!file.exists(file)) { return(FALSE) }
 
   db_config <- yaml::read_yaml(file = file)
 
@@ -683,7 +687,7 @@ utils_driver_name_to_function <- function(driver) {
 
 
 utils_file_choose_looped <- function(prompt){
-  readline(prompt = paste0(prompt, "Press enter to continue", collapse = ""))
+  readline(prompt = paste0(prompt, " [Press enter to continue] ", collapse = ""))
   f = tryCatch(expr = {
       file.choose()
     },
