@@ -119,22 +119,18 @@
 <span><span class="va">sqlite_connection</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/easydb_connect.html">easydb_connect</a></span><span class="op">(</span><span class="va">sqlitedb</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># mysql</span></span>
-<span><span class="co"># There is a public rfam mysql database we can use to test</span></span>
-<span><span class="co"># host: mysql-rfam-public.ebi.ac.uk</span></span>
-<span><span class="co"># username: rfamro</span></span>
-<span><span class="co"># port: 4497</span></span>
-<span><span class="co"># password: none</span></span>
-<span><span class="co"># database: Rfam</span></span>
+<span><span class="co"># Example: connect to the public rfam mysql database</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># See here for connection configuration: </span></span>
+<span><span class="co"># https://docs.rfam.org/en/latest/database.html</span></span>
 <span><span class="va">rfam_connection</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/easydb_connect.html">easydb_connect</a></span><span class="op">(</span>dbname <span class="op">=</span> <span class="st">"Rfam"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># postgresql</span></span>
-<span><span class="co"># RNAcentral hosts a public postgres database we can use for testing</span></span>
-<span><span class="co"># Hostname: hh-pgsql-public.ebi.ac.uk</span></span>
-<span><span class="co"># Port: 5432</span></span>
-<span><span class="co"># Database: pfmegrnargs</span></span>
-<span><span class="co"># User: reader</span></span>
-<span><span class="co"># Password: NWDMCE5xdipIjRrp</span></span>
+<span><span class="co"># Example: Connect to public RNAcentral postgres database</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># See here for connection configuration: </span></span>
+<span><span class="co"># https://rnacentral.org/help/public-database</span></span>
 <span><span class="va">rna_central_connection</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/easydb_connect.html">easydb_connect</a></span><span class="op">(</span>dbname <span class="op">=</span> <span class="st">'pfmegrnargs'</span><span class="op">)</span></span>
 <span></span>
 <span></span>
