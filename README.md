@@ -55,22 +55,18 @@ sqlitedb <- system.file(package="easydb", "testdbs/mtcars.sqlite")
 sqlite_connection <- easydb_connect(sqlitedb)
 
 # mysql
-# There is a public rfam mysql database we can use to test
-# host: mysql-rfam-public.ebi.ac.uk
-# username: rfamro
-# port: 4497
-# password: none
-# database: Rfam
+# Example: connect to the public rfam mysql database
+#
+# See here for connection configuration: 
+# https://docs.rfam.org/en/latest/database.html
 rfam_connection <- easydb_connect(dbname = "Rfam")
 
 
 # postgresql
-# RNAcentral hosts a public postgres database we can use for testing
-# Hostname: hh-pgsql-public.ebi.ac.uk
-# Port: 5432
-# Database: pfmegrnargs
-# User: reader
-# Password: NWDMCE5xdipIjRrp
+# Example: Connect to public RNAcentral postgres database
+#
+# See here for connection configuration: 
+# https://rnacentral.org/help/public-database
 rna_central_connection <- easydb_connect(dbname = 'pfmegrnargs')
 
 
