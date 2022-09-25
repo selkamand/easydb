@@ -134,11 +134,14 @@ easydb_disconnect <- function(connection){
 #' @examples
 #' easydb_available_databases()
 easydb_available_databases <- function(config_file = config_filepath()){
-  if(!file.exists(config_file))
-    cli::cli_abort(
-      "No config file found at {.path {config_file}}.
+  if(!file.exists(config_file)){
+    cli::cli_inform(
+      c('!'="No config file found at {.path {config_file}}.
       To create one, use {.code easydb_connect(<dbname>)}.
-      If you've already created one at a custom location, set argument {.field config_file = <path/to/config>} and try again")
+      If you've already created one at a custom location, set argument {.field config_file = <path/to/config>} and try again"
+      ))
+    return(invisible(NULL))
+  }
 
   config_file <- normalizePath(config_file, mustWork = FALSE)
 
