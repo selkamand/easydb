@@ -78,14 +78,32 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
+  <main id="main" class="col-md-9"><ul>
+<li>
+<a href="#easydb-" id="toc-easydb-">easydb </a><a href="https://selkamand.github.io/easydb/"><img src="reference/figures/logo.png" align="right" height="104"></a><ul>
+<li><a href="#installation" id="toc-installation">Installation</a></li>
+<li>
+<a href="#connecting-to-a-database" id="toc-connecting-to-a-database">Connecting to a database</a><ul>
+<li><a href="#step-1-initialise-config-file" id="toc-step-1-initialise-config-file">Step 1: Initialise Config File</a></li>
+<li><a href="#step-2-connect-to-database" id="toc-step-2-connect-to-database">Step 2: Connect to Database</a></li>
+<li><a href="#step-3-disconnect-when-finished" id="toc-step-3-disconnect-when-finished">Step 3: Disconnect when finished</a></li>
+<li><a href="#what-to-expect" id="toc-what-to-expect">What to expect</a></li>
+</ul>
+</li>
+<li><a href="#quick-start-examples" id="toc-quick-start-examples">Quick start (examples)</a></li>
+<li><a href="#disconnect" id="toc-disconnect">Disconnect</a></li>
+</ul>
+</li>
+<li><a href="#how-does-easydb-work" id="toc-how-does-easydb-work">How does easydb work?</a></li>
+</ul>
+<!-- README.md is generated from README.Rmd. Please edit that file --><div class="section level1">
 <div class="page-header">
 <img src="logo.png" class="logo" alt=""><h1 id="easydb-">easydb 
 <a class="anchor" aria-label="anchor" href="#easydb-"></a>
 </h1>
 </div>
 <!-- badges: start -->
-<!-- badges: end --><p>The goal of easydb is to simplify the process of connecting to databases using R</p>
+<p>The goal of easydb is to simplify the process of connecting to databases using R</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -105,7 +123,7 @@
 </h3>
 <p>We need to store your configuration details in a file somewhere on disk. You can choose where.</p>
 <p>A common practice is to create a hidden file in your home directory.</p>
-<p>We’ll create our config file <code>~/.easydb</code></p>
+<p>We’ll create our config file: <code>~/.easydb</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/easydb_init.html">easydb_init</a></span><span class="op">(</span>config_file <span class="op">=</span> <span class="st">'~/.easydb'</span><span class="op">)</span></span></code></pre></div>
 <p>This only needs to be done once.</p>
@@ -130,7 +148,7 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+<h2 id="quick-start-examples">Quick start (examples)<a class="anchor" aria-label="anchor" href="#quick-start-examples"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/selkamand/easydb" class="external-link">easydb</a></span><span class="op">)</span></span>
@@ -172,7 +190,7 @@
 <div class="section level1">
 <h1 id="how-does-easydb-work">How does easydb work?<a class="anchor" aria-label="anchor" href="#how-does-easydb-work"></a>
 </h1>
-<p>Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at ~/.easydb or some custom user-specified location.</p>
+<p>Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at a user-specified location (we recommend <code>~/.easydb</code>).</p>
 <p>Credentials are stored separately in your operating systems credential store. This is powered by <code>keyring</code>. If you’re on linux you may need to install the secret service library. See the <a href="https://github.com/r-lib/keyring" class="external-link">readme</a> for details</p>
 </div>
 
@@ -211,6 +229,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://CRAN.R-project.org/package=easydb" class="external-link"><img src="https://www.r-pkg.org/badges/version/easydb" alt="CRAN status"></a></li>
 </ul>
 </div>
 
