@@ -306,7 +306,7 @@ utils_database_get_or_set_creds <- function(dbname) {
   if (!dbname_found | !username_found) {
     cli::cli_alert_info("Existing credential set not found")
 
-    create_new_passcode <- utils::menu(title = "Existing credentials not found. Do you want to add a new password?", choices = c("Yes", "No"))
+    create_new_passcode <- utils::menu(title = "Existing credentials not found. Do you want to add a new username & password?", choices = c("Yes", "No"))
 
     if (is.na(create_new_passcode) | create_new_passcode == FALSE) {
       cli::cli_alert_info("User chose not to create a new passcode\n\n")
