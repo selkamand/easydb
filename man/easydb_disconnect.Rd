@@ -20,7 +20,7 @@ if(interactive()) {
 
   # Choose config file path
   # Do NOT use tempfile in practice.
-  # Choose a fixed location such as '~/.easydb'
+  # Instead, choose a fixed location such as '~/.easydb'
   config <- tempfile()
 
   # Initialise config file
@@ -28,7 +28,7 @@ if(interactive()) {
 
   # Connect to SQLite database
   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-  con <- easydb_connect(config_file = config, dbname = path_to_db)
+  con <- easydb_connect(dbname = path_to_db, config_file = config)
 
   # Disconnect from database when finished
   easydb_disconnect(con)

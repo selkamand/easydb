@@ -54,7 +54,7 @@ easydb_init <- function(config_file){
 #'
 #' @param dbname name of database (string)
 #' @param from_scratch should we delete any current config / credentials for databases with the supplied name and start again? (logical)
-#' @param config_file path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)
+#' @param config_file path to yaml file containing configuration information about databases (port, host, etc. ) (string)
 #'
 #' @return connection to database (connection)
 #' @export
@@ -64,7 +64,7 @@ easydb_init <- function(config_file){
 #'
 #'   # Choose config file path
 #'   # Do NOT use tempfile in practice.
-#'   # Choose a fixed location such as '~/.easydb'
+#'   # Instead, choose a fixed location such as '~/.easydb'
 #'   config <- tempfile()
 #'
 #'   # Initialise config file
@@ -72,12 +72,12 @@ easydb_init <- function(config_file){
 #'
 #'   # Connect to SQLite database
 #'   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-#'   con <- easydb_connect(config_file = config, dbname = path_to_db)
+#'   con <- easydb_connect(dbname = path_to_db, config_file = config)
 #'
 #'   # Disconnect from database when finished
 #'   easydb_disconnect(con)
 #' }
-easydb_connect <- function(config_file, dbname, from_scratch = FALSE) {
+easydb_connect <- function(dbname, config_file, from_scratch = FALSE) {
 
   # Assertions
   assertthat::assert_that(assertthat::is.string(dbname))
@@ -197,8 +197,7 @@ easydb_available_databases <- function(config_file){
   if(!file.exists(config_file)){
     cli::cli_inform(
       c('!'="No config file found at {.path {config_file}}.
-      To create one, use {.code easydb_connect(<dbname>)}.
-      If you've already created one at a custom location, set argument {.field config_file = <path/to/config>} and try again"
+      To create one, use `easydb_init({.field \'{config_file}\'})`"
       ))
     return(invisible(NULL))
   }
@@ -220,7 +219,8 @@ easydb_available_databases <- function(config_file){
 
   cli::cli_h1('Notes')
   cli::cli_alert_info('Config file: {.path {config_file}}')
-  cli::cli_alert_info("Add more database connections using {.code easydb_connect}")
+  cli::cli_alert_info(
+    "Add more database connections using `easydb_connect(<dbname>, {.field \'{config_file}\'})`")
 
   return(invisible(unname(databases_described)))
 }

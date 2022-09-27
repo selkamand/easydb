@@ -1,7 +1,6 @@
 ---
 output: 
-  github_document:
-    toc: true
+  github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -40,39 +39,6 @@ You can install the development version of easydb like so:
 remotes::install_github('selkamand/easydb')
 ```
 
-## Connecting to a database
-
-### Step 1: Initialise Config File
-
-We need to store your configuration details in a file somewhere on disk. You can choose where.
-
-A common practice is to create a hidden file in your home directory.
-
-We'll create our config file: `~/.easydb`
-
-```{r, eval=FALSE}
-easydb_init(config_file = '~/.easydb')
-```
-
-This only needs to be done once.
-
-### Step 2: Connect to Database
-
-Connect to databases:
-
-`easydb_connect('database_name', '~/.easydb')`
-
-### Step 3: Disconnect when finished
-
-Disconnect from databases:
-
-`easydb_disconnect(connection)`
-
-### What to expect
-
-The first time you try to connect to a database, you may have to answer some questions about the database (depending on the database type you're connecting to).
-
-Once you've setup the configuration, you will not have to re-enter host/port/creds unless you set the argument `from_scratch = TRUE`. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.
 
 ## Quick start (examples)
 
@@ -108,11 +74,53 @@ easydb_disconnect(rna_central_connection)
 easydb_disconnect(rfam_connection)
 ```
 
-## Disconnect
+### Disconnect
 
 Once you've finished working with a database, its best to disconnect from the db using `easydb_disconnect(connection_object)`
 
-# How does easydb work?
+## Usage (Generalised Workflow)
+
+### Step 1: Initialise Config File
+
+We need to store your configuration details in a file somewhere on disk. You can choose where.
+
+A common practice is to create a hidden file in your home directory.
+
+We'll create our config file: `~/.easydb`
+
+```{r, eval=FALSE}
+easydb_init(config_file = '~/.easydb')
+```
+
+This only needs to be done once.
+
+### Step 2: Connect to Database
+
+Connect to databases:
+
+`easydb_connect('database_name', '~/.easydb')`
+
+### Step 3: Disconnect when finished
+
+Disconnect from databases:
+
+`easydb_disconnect(connection)`
+
+### What to expect
+
+The first time you try to connect to a database, you may have to answer some questions about the database (depending on the database type you're connecting to).
+
+Once you've setup the configuration, you will not have to re-enter host/port/creds unless you set the argument `from_scratch = TRUE`. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.
+
+## Miscellaneous Functionality
+
+```{r, eval = FALSE}
+# List  previously configured databases
+easydb_available_databases('~/.easydb')
+```
+
+
+## How does easydb work?
 
 Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at a user-specified location (we recommend `~/.easydb`).
 

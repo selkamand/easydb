@@ -7,7 +7,7 @@
 easydb_available_databases(config_file)
 }
 \arguments{
-\item{config_file}{path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)}
+\item{config_file}{path to yaml file containing configuration information about databases (port, host, etc. ) (string)}
 }
 \value{
 database names (character vector)
