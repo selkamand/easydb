@@ -21,7 +21,7 @@ if(interactive()) {
   # Choose config file path
   # Do NOT use tempfile in practice.
   # Instead, choose a fixed location such as '~/.easydb'
-  config <- tempfile()
+  config <- tempfile('.example_config')
 
   # Initialise config file
   easydb_init(config)

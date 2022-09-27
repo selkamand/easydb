@@ -20,7 +20,7 @@ Create a file to store your database configurations in.
 # Choose config file path
 # Do NOT use tempfile in practice.
 # Choose a fixed location such as '~/.easydb'
-config <- tempfile()
+config <- tempfile('.example_config')
 
 # Initialise Configuration File
 easydb_init(config)

@@ -19,7 +19,7 @@
 #' # Choose config file path
 #' # Do NOT use tempfile in practice.
 #' # Choose a fixed location such as '~/.easydb'
-#' config <- tempfile()
+#' config <- tempfile('.example_config')
 #'
 #' # Initialise Configuration File
 #' easydb_init(config)
@@ -65,7 +65,7 @@ easydb_init <- function(config_file){
 #'   # Choose config file path
 #'   # Do NOT use tempfile in practice.
 #'   # Instead, choose a fixed location such as '~/.easydb'
-#'   config <- tempfile()
+#'   config <- tempfile('.example_config')
 #'
 #'   # Initialise config file
 #'   easydb_init(config)
@@ -753,14 +753,11 @@ is_absolute_path <- function(path){
   assertthat::assert_that(assertthat::is.string(path))
   assertthat::assert_that(nchar(path) > 0)
 
-  first_char <- substr(x = path, start = 1, stop = 1)
+  is_absolute <- startsWith(x = path, prefix = "~") |
+    startsWith(x = path, prefix = "/") |
+    grepl(x = path, pattern = "^.:")
 
-  absolute_first_chars = c('~', '/')
-
-  if (first_char %in% absolute_first_chars)
-    return(TRUE)
-  else
-    return(FALSE)
+  return(is_absolute)
 }
 
 
