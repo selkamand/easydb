@@ -8,3 +8,5 @@
 docs
 **/inst/images/*.pptx
 inst/doc
+/doc/
+/Meta/

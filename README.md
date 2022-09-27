@@ -1,4 +1,24 @@
 
+-   <a href="#easydb-" id="toc-easydb-">easydb
+    <a href="https://selkamand.github.io/easydb/"><img src="man/figures/logo.png" align="right" height="104"/></a></a>
+    -   <a href="#installation" id="toc-installation">Installation</a>
+    -   <a href="#connecting-to-a-database"
+        id="toc-connecting-to-a-database">Connecting to a database</a>
+        -   <a href="#step-1-initialise-config-file"
+            id="toc-step-1-initialise-config-file">Step 1: Initialise Config
+            File</a>
+        -   <a href="#step-2-connect-to-database"
+            id="toc-step-2-connect-to-database">Step 2: Connect to Database</a>
+        -   <a href="#step-3-disconnect-when-finished"
+            id="toc-step-3-disconnect-when-finished">Step 3: Disconnect when
+            finished</a>
+        -   <a href="#what-to-expect" id="toc-what-to-expect">What to expect</a>
+    -   <a href="#quick-start-examples" id="toc-quick-start-examples">Quick
+        start (examples)</a>
+    -   <a href="#disconnect" id="toc-disconnect">Disconnect</a>
+-   <a href="#how-does-easydb-work" id="toc-how-does-easydb-work">How does
+    easydb work?</a>
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # easydb <a href="https://selkamand.github.io/easydb/"><img src="man/figures/logo.png" align="right" height="104"/></a>
@@ -7,7 +27,8 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
+[![CRAN
+status](https://www.r-pkg.org/badges/version/easydb)](https://CRAN.R-project.org/package=easydb)
 <!-- badges: end -->
 
 The goal of easydb is to simplify the process of connecting to databases
@@ -37,7 +58,7 @@ You can choose where.
 
 A common practice is to create a hidden file in your home directory.
 
-We’ll create our config file `~/.easydb`
+We’ll create our config file: `~/.easydb`
 
 ``` r
 easydb_init(config_file = '~/.easydb')
@@ -68,7 +89,7 @@ host/port/creds unless you set the argument `from_scratch = TRUE`. This
 argument will delete the existing configuration and credentials for the
 given database and prompt you to supply updated information.
 
-## Quick start
+## Quick start (examples)
 
 ``` r
 library(easydb)
@@ -110,8 +131,8 @@ from the db using `easydb_disconnect(connection_object)`
 # How does easydb work?
 
 Database configurations (host, port, driver, etc) are stored in a
-configuration file that will be created at \~/.easydb or some custom
-user-specified location.
+configuration file that will be created at a user-specified location (we
+recommend `~/.easydb`).
 
 Credentials are stored separately in your operating systems credential
 store. This is powered by `keyring`. If you’re on linux you may need to

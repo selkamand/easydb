@@ -1,5 +1,7 @@
 ---
-output: github_document
+output: 
+  github_document:
+    toc: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -18,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
+[![CRAN status](https://www.r-pkg.org/badges/version/easydb)](https://CRAN.R-project.org/package=easydb)
 <!-- badges: end -->
 
 The goal of easydb is to simplify the process of connecting to databases using R
@@ -42,12 +44,11 @@ remotes::install_github('selkamand/easydb')
 
 ### Step 1: Initialise Config File
 
-We need to store your configuration details in a file somewhere on disk. 
-You can choose where.
+We need to store your configuration details in a file somewhere on disk. You can choose where.
 
 A common practice is to create a hidden file in your home directory.
 
-We'll create our config file `~/.easydb`
+We'll create our config file: `~/.easydb`
 
 ```{r, eval=FALSE}
 easydb_init(config_file = '~/.easydb')
@@ -61,7 +62,6 @@ Connect to databases:
 
 `easydb_connect('database_name', '~/.easydb')`
 
-
 ### Step 3: Disconnect when finished
 
 Disconnect from databases:
@@ -74,7 +74,7 @@ The first time you try to connect to a database, you may have to answer some que
 
 Once you've setup the configuration, you will not have to re-enter host/port/creds unless you set the argument `from_scratch = TRUE`. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.
 
-## Quick start
+## Quick start (examples)
 
 ```{r sqlite, eval=FALSE}
 library(easydb)
@@ -114,6 +114,6 @@ Once you've finished working with a database, its best to disconnect from the db
 
 # How does easydb work?
 
-Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at \~/.easydb or some custom user-specified location.
+Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at a user-specified location (we recommend `~/.easydb`).
 
 Credentials are stored separately in your operating systems credential store. This is powered by `keyring`. If you're on linux you may need to install the secret service library. See the [readme](https://github.com/r-lib/keyring) for details
