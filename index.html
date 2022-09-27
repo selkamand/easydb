@@ -78,25 +78,7 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><ul>
-<li>
-<a href="#easydb-" id="toc-easydb-">easydb </a><a href="https://selkamand.github.io/easydb/"><img src="reference/figures/logo.png" align="right" height="104"></a><ul>
-<li><a href="#installation" id="toc-installation">Installation</a></li>
-<li>
-<a href="#connecting-to-a-database" id="toc-connecting-to-a-database">Connecting to a database</a><ul>
-<li><a href="#step-1-initialise-config-file" id="toc-step-1-initialise-config-file">Step 1: Initialise Config File</a></li>
-<li><a href="#step-2-connect-to-database" id="toc-step-2-connect-to-database">Step 2: Connect to Database</a></li>
-<li><a href="#step-3-disconnect-when-finished" id="toc-step-3-disconnect-when-finished">Step 3: Disconnect when finished</a></li>
-<li><a href="#what-to-expect" id="toc-what-to-expect">What to expect</a></li>
-</ul>
-</li>
-<li><a href="#quick-start-examples" id="toc-quick-start-examples">Quick start (examples)</a></li>
-<li><a href="#disconnect" id="toc-disconnect">Disconnect</a></li>
-</ul>
-</li>
-<li><a href="#how-does-easydb-work" id="toc-how-does-easydb-work">How does easydb work?</a></li>
-</ul>
-<!-- README.md is generated from README.Rmd. Please edit that file --><div class="section level1">
+  <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
 <img src="logo.png" class="logo" alt=""><h1 id="easydb-">easydb 
 <a class="anchor" aria-label="anchor" href="#easydb-"></a>
@@ -116,41 +98,9 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'selkamand/easydb'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="connecting-to-a-database">Connecting to a database<a class="anchor" aria-label="anchor" href="#connecting-to-a-database"></a>
-</h2>
-<div class="section level3">
-<h3 id="step-1-initialise-config-file">Step 1: Initialise Config File<a class="anchor" aria-label="anchor" href="#step-1-initialise-config-file"></a>
-</h3>
-<p>We need to store your configuration details in a file somewhere on disk. You can choose where.</p>
-<p>A common practice is to create a hidden file in your home directory.</p>
-<p>We’ll create our config file: <code>~/.easydb</code></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/easydb_init.html">easydb_init</a></span><span class="op">(</span>config_file <span class="op">=</span> <span class="st">'~/.easydb'</span><span class="op">)</span></span></code></pre></div>
-<p>This only needs to be done once.</p>
-</div>
-<div class="section level3">
-<h3 id="step-2-connect-to-database">Step 2: Connect to Database<a class="anchor" aria-label="anchor" href="#step-2-connect-to-database"></a>
-</h3>
-<p>Connect to databases:</p>
-<p><code>easydb_connect('database_name', '~/.easydb')</code></p>
-</div>
-<div class="section level3">
-<h3 id="step-3-disconnect-when-finished">Step 3: Disconnect when finished<a class="anchor" aria-label="anchor" href="#step-3-disconnect-when-finished"></a>
-</h3>
-<p>Disconnect from databases:</p>
-<p><code>easydb_disconnect(connection)</code></p>
-</div>
-<div class="section level3">
-<h3 id="what-to-expect">What to expect<a class="anchor" aria-label="anchor" href="#what-to-expect"></a>
-</h3>
-<p>The first time you try to connect to a database, you may have to answer some questions about the database (depending on the database type you’re connecting to).</p>
-<p>Once you’ve setup the configuration, you will not have to re-enter host/port/creds unless you set the argument <code>from_scratch = TRUE</code>. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.</p>
-</div>
-</div>
-<div class="section level2">
 <h2 id="quick-start-examples">Quick start (examples)<a class="anchor" aria-label="anchor" href="#quick-start-examples"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/selkamand/easydb" class="external-link">easydb</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Initialise a config file at '~/.easydb'</span></span>
@@ -180,20 +130,58 @@
 <span><span class="fu"><a href="reference/easydb_disconnect.html">easydb_disconnect</a></span><span class="op">(</span><span class="va">sqlite_connection</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/easydb_disconnect.html">easydb_disconnect</a></span><span class="op">(</span><span class="va">rna_central_connection</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/easydb_disconnect.html">easydb_disconnect</a></span><span class="op">(</span><span class="va">rfam_connection</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="disconnect">Disconnect<a class="anchor" aria-label="anchor" href="#disconnect"></a>
-</h2>
+<div class="section level3">
+<h3 id="disconnect">Disconnect<a class="anchor" aria-label="anchor" href="#disconnect"></a>
+</h3>
 <p>Once you’ve finished working with a database, its best to disconnect from the db using <code>easydb_disconnect(connection_object)</code></p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="how-does-easydb-work">How does easydb work?<a class="anchor" aria-label="anchor" href="#how-does-easydb-work"></a>
-</h1>
+<div class="section level2">
+<h2 id="usage-generalised-workflow">Usage (Generalised Workflow)<a class="anchor" aria-label="anchor" href="#usage-generalised-workflow"></a>
+</h2>
+<div class="section level3">
+<h3 id="step-1-initialise-config-file">Step 1: Initialise Config File<a class="anchor" aria-label="anchor" href="#step-1-initialise-config-file"></a>
+</h3>
+<p>We need to store your configuration details in a file somewhere on disk. You can choose where.</p>
+<p>A common practice is to create a hidden file in your home directory.</p>
+<p>We’ll create our config file: <code>~/.easydb</code></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/easydb_init.html">easydb_init</a></span><span class="op">(</span>config_file <span class="op">=</span> <span class="st">'~/.easydb'</span><span class="op">)</span></span></code></pre></div>
+<p>This only needs to be done once.</p>
+</div>
+<div class="section level3">
+<h3 id="step-2-connect-to-database">Step 2: Connect to Database<a class="anchor" aria-label="anchor" href="#step-2-connect-to-database"></a>
+</h3>
+<p>Connect to databases:</p>
+<p><code>easydb_connect('database_name', '~/.easydb')</code></p>
+</div>
+<div class="section level3">
+<h3 id="step-3-disconnect-when-finished">Step 3: Disconnect when finished<a class="anchor" aria-label="anchor" href="#step-3-disconnect-when-finished"></a>
+</h3>
+<p>Disconnect from databases:</p>
+<p><code>easydb_disconnect(connection)</code></p>
+</div>
+<div class="section level3">
+<h3 id="what-to-expect">What to expect<a class="anchor" aria-label="anchor" href="#what-to-expect"></a>
+</h3>
+<p>The first time you try to connect to a database, you may have to answer some questions about the database (depending on the database type you’re connecting to).</p>
+<p>Once you’ve setup the configuration, you will not have to re-enter host/port/creds unless you set the argument <code>from_scratch = TRUE</code>. This argument will delete the existing configuration and credentials for the given database and prompt you to supply updated information.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="miscellaneous-functionality">Miscellaneous Functionality<a class="anchor" aria-label="anchor" href="#miscellaneous-functionality"></a>
+</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># List  previously configured databases</span></span>
+<span><span class="fu"><a href="reference/easydb_available_databases.html">easydb_available_databases</a></span><span class="op">(</span><span class="st">'~/.easydb'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="how-does-easydb-work">How does easydb work?<a class="anchor" aria-label="anchor" href="#how-does-easydb-work"></a>
+</h2>
 <p>Database configurations (host, port, driver, etc) are stored in a configuration file that will be created at a user-specified location (we recommend <code>~/.easydb</code>).</p>
 <p>Credentials are stored separately in your operating systems credential store. This is powered by <code>keyring</code>. If you’re on linux you may need to install the secret service library. See the <a href="https://github.com/r-lib/keyring" class="external-link">readme</a> for details</p>
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

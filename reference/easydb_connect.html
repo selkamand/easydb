@@ -66,17 +66,17 @@ Any usernames and passwords are stored in your system credential manager (not on
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">easydb_connect</span><span class="op">(</span><span class="va">config_file</span>, <span class="va">dbname</span>, from_scratch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">easydb_connect</span><span class="op">(</span><span class="va">dbname</span>, <span class="va">config_file</span>, from_scratch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>config_file</dt>
-<dd><p>path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)</p></dd>
-
-
-<dt>dbname</dt>
+    <dl><dt>dbname</dt>
 <dd><p>name of database (string)</p></dd>
+
+
+<dt>config_file</dt>
+<dd><p>path to yaml file containing configuration information about databases (port, host, etc. ) (string)</p></dd>
 
 
 <dt>from_scratch</dt>
@@ -96,7 +96,7 @@ Any usernames and passwords are stored in your system credential manager (not on
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Choose config file path</span></span></span>
 <span class="r-in"><span>  <span class="co"># Do NOT use tempfile in practice.</span></span></span>
-<span class="r-in"><span>  <span class="co"># Choose a fixed location such as '~/.easydb'</span></span></span>
+<span class="r-in"><span>  <span class="co"># Instead, choose a fixed location such as '~/.easydb'</span></span></span>
 <span class="r-in"><span>  <span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Initialise config file</span></span></span>
@@ -104,7 +104,7 @@ Any usernames and passwords are stored in your system credential manager (not on
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Connect to SQLite database</span></span></span>
 <span class="r-in"><span>  <span class="va">path_to_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'easydb'</span>, <span class="st">'testdbs/mtcars.sqlite'</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">easydb_connect</span><span class="op">(</span>config_file <span class="op">=</span> <span class="va">config</span>, dbname <span class="op">=</span> <span class="va">path_to_db</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">easydb_connect</span><span class="op">(</span>dbname <span class="op">=</span> <span class="va">path_to_db</span>, config_file <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Disconnect from database when finished</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="easydb_disconnect.html">easydb_disconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></span>
