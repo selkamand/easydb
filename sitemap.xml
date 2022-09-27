@@ -25,9 +25,6 @@
     <loc>https://selkamand.github.io/easydb/reference/assert_config_file_appropriate.html</loc>
   </url>
   <url>
-    <loc>https://selkamand.github.io/easydb/reference/config_filepath.html</loc>
-  </url>
-  <url>
     <loc>https://selkamand.github.io/easydb/reference/easydb_available_databases.html</loc>
   </url>
   <url>
@@ -35,6 +32,9 @@
   </url>
   <url>
     <loc>https://selkamand.github.io/easydb/reference/easydb_disconnect.html</loc>
+  </url>
+  <url>
+    <loc>https://selkamand.github.io/easydb/reference/easydb_init.html</loc>
   </url>
   <url>
     <loc>https://selkamand.github.io/easydb/reference/index.html</loc>
