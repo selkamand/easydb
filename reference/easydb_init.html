@@ -76,12 +76,14 @@
 <span class="r-in"><span><span class="co"># Choose config file path</span></span></span>
 <span class="r-in"><span><span class="co"># Do NOT use tempfile in practice.</span></span></span>
 <span class="r-in"><span><span class="co"># Choose a fixed location such as '~/.easydb'</span></span></span>
-<span class="r-in"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">'.example_config'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Initialise Configuration File</span></span></span>
 <span class="r-in"><span><span class="fu">easydb_init</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in assert_config_file_appropriate(config_file):</span> Config file should almost always be a hidden file. Consider changing</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">file2d43197e9cec</span> to <span style="color: #0000BB;">.file2d43197e9cec</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating config file at:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="color: #0000BB;">/tmp/RtmptUO1OX/.example_config2d1659d1a0cd</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Config file created at <span style="color: #0000BB;">/tmp/RtmptUO1OX/.example_config2d1659d1a0cd</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
