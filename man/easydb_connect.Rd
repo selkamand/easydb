@@ -4,12 +4,12 @@
 \alias{easydb_connect}
 \title{Easy Database Connection}
 \usage{
-easydb_connect(dbname, config_file = config_filepath(), from_scratch = FALSE)
+easydb_connect(config_file, dbname, from_scratch = FALSE)
 }
 \arguments{
-\item{dbname}{name of database (string)}
-
 \item{config_file}{path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)}
+
+\item{dbname}{name of database (string)}
 
 \item{from_scratch}{should we delete any current config / credentials for databases with the supplied name and start again? (logical)}
 }
@@ -17,13 +17,26 @@ easydb_connect(dbname, config_file = config_filepath(), from_scratch = FALSE)
 connection to database (connection)
 }
 \description{
-Easy Database Connection
+Easily connect to a database.
+When connecting to a database for the first time, you will be prompted for connection details.
+Configuration details will be stored in the user-specified 'configuration file'.
+The next time you run the same command, config details will be automatically retreived from the config file.
+Any usernames and passwords are stored in your system credential manager (not on-disk)
 }
 \examples{
 if(interactive()) {
+
+  # Choose config file path
+  # Do NOT use tempfile in practice.
+  # Choose a fixed location such as '~/.easydb'
+  config <- tempfile()
+
+  # Initialise config file
+  easydb_init(config)
+
   # Connect to SQLite database
   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-  con <- easydb_connect(dbname = path_to_db)
+  con <- easydb_connect(config_file = config, dbname = path_to_db)
 
   # Disconnect from database when finished
   easydb_disconnect(con)

@@ -8,7 +8,7 @@ Authors@R:
   role = c("aut", "cre", "cph"),
   email = "sam.elkamand@gmail.com",
   comment = c(ORCID = "0000-0003-2270-8088"))
-Description: A unified interface for connecting to databases (SQLite, MySQL, PostgreSQL).
+Description: A unified interface for connecting to databases ('SQLite', 'MySQL', 'PostgreSQL').
     Just provide the database name and the package will ask you questions
     to help you configure the connection and setup your credentials.  Once
     database configuration and connection has been set up once, you won't

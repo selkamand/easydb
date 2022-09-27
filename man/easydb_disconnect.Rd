@@ -17,9 +17,18 @@ Simple wrapper around [DBI::dbDisconnect()]
 }
 \examples{
 if(interactive()) {
+
+  # Choose config file path
+  # Do NOT use tempfile in practice.
+  # Choose a fixed location such as '~/.easydb'
+  config <- tempfile()
+
+  # Initialise config file
+  easydb_init(config)
+
   # Connect to SQLite database
   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-  con <- easydb_connect(dbname = path_to_db)
+  con <- easydb_connect(config_file = config, dbname = path_to_db)
 
   # Disconnect from database when finished
   easydb_disconnect(con)

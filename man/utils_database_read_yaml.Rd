@@ -4,7 +4,7 @@
 \alias{utils_database_read_yaml}
 \title{Read the database config}
 \usage{
-utils_database_read_yaml(dbname, file = config_filepath())
+utils_database_read_yaml(dbname, file)
 }
 \arguments{
 \item{dbname}{name of database whose config you want to read}

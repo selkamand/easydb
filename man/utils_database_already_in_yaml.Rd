@@ -4,7 +4,7 @@
 \alias{utils_database_already_in_yaml}
 \title{Database Utils}
 \usage{
-utils_database_already_in_yaml(dbname, file = config_filepath())
+utils_database_already_in_yaml(dbname, file)
 }
 \arguments{
 \item{dbname}{database name (character)}

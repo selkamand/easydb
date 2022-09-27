@@ -13,7 +13,7 @@ utils_database_write_yaml(
   ssl_cert = NULL,
   ssl_key = NULL,
   ssl_ca = NULL,
-  file = config_filepath(),
+  file,
   append = TRUE
 )
 }

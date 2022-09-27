@@ -4,7 +4,7 @@
 \alias{utils_database_remove_entry_from_yaml}
 \title{Delete database config entries from yaml}
 \usage{
-utils_database_remove_entry_from_yaml(dbnames, file = config_filepath())
+utils_database_remove_entry_from_yaml(dbnames, file)
 }
 \arguments{
 \item{dbnames}{names of databases to delete from yaml (character)}

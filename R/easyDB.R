@@ -1,10 +1,55 @@
 
 # Exposed Functions -------------------------------------------------------
 
-
 ## Connect to Database -----------------------------------------------------
 
+# Initialise DB
+
+#' Initialise Configuration Store
+#'
+#' Create a file to store your database configurations in.
+#'
+#' @param config_file path to create a new config file to store database configurations
+#'
+#' @return invisibly returns path to config file
+#' @export
+#'
+#' @examples
+#'
+#' # Choose config file path
+#' # Do NOT use tempfile in practice.
+#' # Choose a fixed location such as '~/.easydb'
+#' config <- tempfile()
+#'
+#' # Initialise Configuration File
+#' easydb_init(config)
+#'
+easydb_init <- function(config_file){
+  assert_config_file_appropriate(config_file)
+
+  config_file <- normalizePath(config_file, mustWork = FALSE, winslash = "/")
+
+  if(file.exists(config_file)){
+    cli::cli_alert_info('Config file already exists [{.path {config_file}}]. Skipping config file creation')
+    return(invisible(config_file))
+  }
+
+  cli::cli_inform('Creating config file at:')
+  cli::cli_alert('{.path {config_file}}')
+  file.create(config_file)
+
+  cli::cli_rule()
+  cli::cli_alert_success('Config file created at {.path {config_file}}')
+  return(invisible(config_file))
+}
+
 #' Easy Database Connection
+#'
+#' Easily connect to a database.
+#' When connecting to a database for the first time, you will be prompted for connection details.
+#' Configuration details will be stored in the user-specified 'configuration file'.
+#' The next time you run the same command, config details will be automatically retreived from the config file.
+#' Any usernames and passwords are stored in your system credential manager (not on-disk)
 #'
 #'
 #' @param dbname name of database (string)
@@ -16,21 +61,35 @@
 #'
 #' @examples
 #' if(interactive()) {
+#'
+#'   # Choose config file path
+#'   # Do NOT use tempfile in practice.
+#'   # Choose a fixed location such as '~/.easydb'
+#'   config <- tempfile()
+#'
+#'   # Initialise config file
+#'   easydb_init(config)
+#'
 #'   # Connect to SQLite database
 #'   path_to_db <- system.file(package = 'easydb', 'testdbs/mtcars.sqlite')
-#'   con <- easydb_connect(dbname = path_to_db)
+#'   con <- easydb_connect(config_file = config, dbname = path_to_db)
 #'
 #'   # Disconnect from database when finished
 #'   easydb_disconnect(con)
 #' }
-easydb_connect <- function(dbname, config_file = config_filepath(), from_scratch = FALSE) {
+easydb_connect <- function(config_file, dbname, from_scratch = FALSE) {
 
   # Assertions
   assertthat::assert_that(assertthat::is.string(dbname))
   assertthat::assert_that(assertthat::is.string(config_file))
 
-  # Make sure supplied configuration filepath looks reasonable
-  assert_config_file_appropriate(config_file)
+
+  # Make sure supplied configuration filepath exists
+  if(!file.exists(config_file)){
+    cli::cli_abort(
+      'No config file found at {.path {config_file}}.
+      If you want to create a new configuration file at this location, please run `easydb_init("{.path {config_file}}")`')
+  }
 
   # Get/Set Config
   cli::cli_h1("Database Configuration")
@@ -132,8 +191,9 @@ easydb_disconnect <- function(connection){
 #' @export
 #'
 #' @examples
-#' easydb_available_databases()
-easydb_available_databases <- function(config_file = config_filepath()){
+#' path_to_config = tempfile()
+#' easydb_available_databases(path_to_config)
+easydb_available_databases <- function(config_file){
   if(!file.exists(config_file)){
     cli::cli_inform(
       c('!'="No config file found at {.path {config_file}}.
@@ -163,20 +223,6 @@ easydb_available_databases <- function(config_file = config_filepath()){
   cli::cli_alert_info("Add more database connections using {.code easydb_connect}")
 
   return(invisible(unname(databases_described)))
-}
-
-
-# Config File Path -------------------------------------------------------------
-
-#' Default database configuration yaml
-#'
-#' @return path to default config banner (string)
-#' @export
-#'
-#' @examples
-#' easydb:::config_filepath()
-config_filepath <- function() {
-  return("~/.easydb")
 }
 
 #' Check config filepath is appropriate
@@ -210,10 +256,15 @@ assert_config_file_appropriate <- function(file){
   if(!has_read_permissions | !has_write_permissions)
     cli::cli_abort('Must have both read and write permissions for folder {.path {dirname(file)}}. Current permissions [Write: {has_write_permissions}, Read: {has_read_permissions}')
 
-  # Make sure file is hidden (prefix '.')
+  # Ensure file is hidden (prefix '.')
   basename = basename(file)
   if (!startsWith(basename, prefix = "."))
     cli::cli_abort("Config file should almost always be a hidden file. Consider changing {.path {basename}} to {.file {paste0('.', basename)}}")
+
+
+  # Ensure path given is absolute
+  if(!is_absolute_path(file))
+    cli::cli_abort('Config file described using a relative path. easydb requires config file path to be {.strong absolute} (e.g. "~/.easydb")')
 
   return(invisible(TRUE))
 }
@@ -230,7 +281,7 @@ assert_config_file_appropriate <- function(file){
 #'
 #' @examples
 #' \dontrun{
-#' creds <- easydb:::util_get_database_creds(
+#' creds <- easydb::util_get_database_creds(
 #'   service = "R-keyring-test-service",
 #'   username = "donaldduck"
 #' )
@@ -299,7 +350,7 @@ utils_database_credentials_delete <- function(dbname){
 #'
 #' @return list describing database configuration
 #'
-utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
+utils_database_get_or_set_config <- function(dbname, file) {
   assertthat::assert_that(assertthat::is.string(dbname))
   assertthat::assert_that(assertthat::is.string(file))
 
@@ -309,7 +360,7 @@ utils_database_get_or_set_config <- function(dbname, file = config_filepath()) {
   }
 
   # If entry is in database, overwrite
-  if (utils_database_already_in_yaml(dbname)) {
+  if (utils_database_already_in_yaml(dbname, file = file)) {
     cli::cli_inform("Found configuration entry for database [{.strong {dbname}}] in config file {.path {file}}")
     config_list <- utils_database_read_yaml(dbname, file)
     return(config_list)
@@ -447,7 +498,7 @@ utils_database_get_driver_specific_config_properties <- function(file, dbname, d
 #'
 #' @return path to config yaml containing the new database info (string)
 #'
-utils_database_write_yaml <- function(dbname, driver, creds_required = FALSE, port = NULL, host = NULL, ssl_cert = NULL, ssl_key = NULL, ssl_ca = NULL, file = config_filepath(), append = TRUE) {
+utils_database_write_yaml <- function(dbname, driver, creds_required = FALSE, port = NULL, host = NULL, ssl_cert = NULL, ssl_key = NULL, ssl_ca = NULL, file, append = TRUE) {
 
 
   # Assertions
@@ -535,7 +586,7 @@ utils_database_write_yaml <- function(dbname, driver, creds_required = FALSE, po
 #'
 #' @return list with config
 #'
-utils_database_read_yaml <- function(dbname, file = config_filepath()) {
+utils_database_read_yaml <- function(dbname, file) {
   assertthat::assert_that(assertthat::is.string(dbname))
   assertthat::assert_that(file.exists(file))
 
@@ -558,7 +609,7 @@ utils_database_read_yaml <- function(dbname, file = config_filepath()) {
 #'
 #' @return true if yaml entry for dbname found, otherwise false (logical)
 #'
-utils_database_already_in_yaml <- function(dbname, file = config_filepath()) {
+utils_database_already_in_yaml <- function(dbname, file) {
   assertthat::assert_that(is.character(dbname))
   assertthat::assert_that(assertthat::is.string(file))
   #assertthat::assert_that(file.exists(file))
@@ -581,7 +632,7 @@ utils_database_already_in_yaml <- function(dbname, file = config_filepath()) {
 #'
 #' @return Run for its side effects
 #'
-utils_database_remove_entry_from_yaml <- function(dbnames, file = config_filepath()) {
+utils_database_remove_entry_from_yaml <- function(dbnames, file) {
   assertthat::assert_that(is.character(dbnames))
   assertthat::assert_that(assertthat::is.string(file))
   assertthat::assert_that(file.exists(file))
@@ -603,7 +654,7 @@ utils_database_remove_entry_from_yaml <- function(dbnames, file = config_filepat
   yaml_list_after_deletion <- yaml_list[!names(yaml_list) %in% dbnames]
 
   if (length(yaml_list_after_deletion) == 0) {
-    cat(NULL, file = config_filepath())
+    cat(NULL, file = file)
   } # Empty file contents if only db present was the one you're trying to remove
   else {
     yaml::write_yaml(yaml_list_after_deletion, file = file)
@@ -694,3 +745,22 @@ utils_file_choose_looped <- function(prompt){
 
   return(f)
 }
+
+
+# Assorted Utilities ------------------------------------------------------
+
+is_absolute_path <- function(path){
+  assertthat::assert_that(assertthat::is.string(path))
+  assertthat::assert_that(nchar(path) > 0)
+
+  first_char <- substr(x = path, start = 1, stop = 1)
+
+  absolute_first_chars = c('~', '/')
+
+  if (first_char %in% absolute_first_chars)
+    return(TRUE)
+  else
+    return(FALSE)
+}
+
+

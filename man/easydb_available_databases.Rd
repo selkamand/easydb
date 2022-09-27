@@ -4,7 +4,7 @@
 \alias{easydb_available_databases}
 \title{Available Databases}
 \usage{
-easydb_available_databases(config_file = config_filepath())
+easydb_available_databases(config_file)
 }
 \arguments{
 \item{config_file}{path to yaml filecontaining configuration information about databases (port, host, etc. ) (string)}
@@ -16,5 +16,6 @@ database names (character vector)
 List databases with configuration details stored in a configuration file.
 }
 \examples{
-easydb_available_databases()
+path_to_config = tempfile()
+easydb_available_databases(path_to_config)
 }

@@ -4,7 +4,7 @@
 \alias{utils_database_get_or_set_config}
 \title{Interactive getting/setting database configurations}
 \usage{
-utils_database_get_or_set_config(dbname, file = config_filepath())
+utils_database_get_or_set_config(dbname, file)
 }
 \arguments{
 \item{dbname}{nane of database (string)}

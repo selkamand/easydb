@@ -30,11 +30,28 @@ remotes::install_github('selkamand/easydb')
 
 ## Connecting to a database
 
-### Functions
+### Step 1: Initialise Config File
+
+We need to store your configuration details in a file somewhere on disk.
+You can choose where.
+
+A common practice is to create a hidden file in your home directory.
+
+We’ll create our config file `~/.easydb`
+
+``` r
+easydb_init(config_file = '~/.easydb')
+```
+
+This only needs to be done once.
+
+### Step 2: Connect to Database
 
 Connect to databases:
 
-`easydb_connect('database_name')`
+`easydb_connect('database_name', '~/.easydb')`
+
+### Step 3: Disconnect when finished
 
 Disconnect from databases:
 
@@ -56,16 +73,19 @@ given database and prompt you to supply updated information.
 ``` r
 library(easydb)
 
+# Initialise a config file at '~/.easydb'
+easydb_init(config_file = '~/.easydb')
+
 # sqlite
 sqlitedb <- system.file(package="easydb", "testdbs/mtcars.sqlite")
-sqlite_connection <- easydb_connect(sqlitedb)
+sqlite_connection <- easydb_connect(sqlitedb, config_file = '~/.easydb')
 
 # mysql
 # Example: connect to the public rfam mysql database
 #
 # See here for connection configuration: 
 # https://docs.rfam.org/en/latest/database.html
-rfam_connection <- easydb_connect(dbname = "Rfam")
+rfam_connection <- easydb_connect(dbname = "Rfam", config_file = '~/.easydb')
 
 
 # postgresql
@@ -73,7 +93,7 @@ rfam_connection <- easydb_connect(dbname = "Rfam")
 #
 # See here for connection configuration: 
 # https://rnacentral.org/help/public-database
-rna_central_connection <- easydb_connect(dbname = 'pfmegrnargs')
+rna_central_connection <- easydb_connect(dbname = 'pfmegrnargs', config_file = '~/.easydb')
 
 
 # Don't forget to disconnect from databases when you finish!
