@@ -9,6 +9,9 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/easydb)](https://CRAN.R-project.org/package=easydb)
+[![R-CMD-check](https://github.com/selkamand/easydb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/selkamand/easydb/actions/workflows/R-CMD-check.yaml)
+[![Download
+Stats](http://cranlogs.r-pkg.org/badges/easydb)](https://cran.r-project.org/package=easydb)
 <!-- badges: end -->
 
 The goal of easydb is to simplify the process of connecting to databases
