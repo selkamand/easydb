@@ -92,7 +92,7 @@ easydb_connect <- function(dbname, config_file, from_scratch = FALSE) {
   }
 
   # Get/Set Config
-  cli::cli_h1("Database Configuration")
+  cli::cli_h2("Database Configuration")
 
   # Delete database entry if running from scratch
   if(from_scratch & utils_database_already_in_yaml(dbname, file = config_file))
@@ -112,7 +112,7 @@ easydb_connect <- function(dbname, config_file, from_scratch = FALSE) {
 
 
   # Get / Set Credentials
-  cli::cli_h1("Credentials")
+  cli::cli_h2("Credentials")
 
   # Override creds_required variable for sqlite databses
   if (config$creds_required){
@@ -214,10 +214,10 @@ easydb_available_databases <- function(config_file){
     databases_described <- 'No database connections defined'
     }
 
-  cli::cli_h1('Databases:')
+  cli::cli_h2('Databases:')
   cli::cli_bullets(databases_described)
 
-  cli::cli_h1('Notes')
+  cli::cli_h2('Notes')
   cli::cli_alert_info('Config file: {.path {config_file}}')
   cli::cli_alert_info(
     "Add more database connections using `easydb_connect(<dbname>, {.field \'{config_file}\'})`")
