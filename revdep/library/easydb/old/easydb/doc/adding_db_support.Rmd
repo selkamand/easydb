@@ -1,0 +1,33 @@
+---
+title: "adding_db_support"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{adding_db_support}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Aim
+
+To document how a developer would add support for additional db driver
+
+# Process
+
+1.  Add driver to `supported_drivers vector` in `supported_drivers()` function. Name should be the package that contains any driver functions you need. If end-users don't have this package installed when trying to connect to this DBtype they will be prompted to install it. Only use CRAN packages please!
+
+2.  Add user-facing UI to `utils_database_get_driver_specific_config_properties` function. If you need new params that arent already the `config_list` this function returns, make sure to add a default to this property (e.g. `NULL` that will be used for all other drivers). Take a read of the function - hopefully where you need to insert new code should be pretty obvious
+
+3.  **If new config properties added**: edit `utils_database_write_yaml()` - adding new args for each added configuration variables. Then edit call to `utils_database_write_yaml()` in `utils_database_get_or_set_config` function to pass the values provided by user to the function that actually writes it to config yaml.
+
+4.  Add else if entry to bottom of `easydb_connect` that creates a connection object (usually using `DBI::dbConnect` but can be any function. use `config$<config_var>` to acccess yaml config fields and `creds$username` and `creds$password` to access user creds from cred manager. Store connection object in var `connection` (this is what the function will return to user).
+
+5.  Add the driver packages to list of `Suggests` in `DESCRIPTION` file
+
+6.  Add example usage to readme

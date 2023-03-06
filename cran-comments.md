@@ -1,13 +1,10 @@
-## R CMD check results
+No reverse dependency failures according to revdepcheck::revdep_check
 
-0 errors | 0 warnings | 1 note
+No breaking changes.
 
-* This is a new release (revised in response to feedback)
-
-## Updates in response to feedback (round 1)
-
-1. Software Names in description single quoted
-
-2. triple colons in examples removed
-
-3. Removed all write by default functionality. All default paths removed - user must now explicitly specify paths
+Passes: 
+```
+devtools::check(remote = TRUE, manual = TRUE)
+devtools::check_win_devel()
+rhub::check_for_cran()
+```
