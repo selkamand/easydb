@@ -10,14 +10,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/easydb)](https://CRAN.R-project.org/package=easydb)
 [![R-CMD-check](https://github.com/selkamand/easydb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/selkamand/easydb/actions/workflows/R-CMD-check.yaml)
-“[![CodeSize](https://img.shields.io/github/languages/code-size/selkamand/easydb.svg)](https://github.com/selkamand/easydb)”
-“[![LastCommit](https://img.shields.io/github/last-commit/selkamand/easydb.svg)](https://github.com/selkamand/easydb/commits/master)”
+[![CodeSize](https://img.shields.io/github/languages/code-size/selkamand/easydb.svg)](https://github.com/selkamand/easydb)
+[![LastCommit](https://img.shields.io/github/last-commit/selkamand/easydb.svg)](https://github.com/selkamand/easydb/commits/master)
 ![GitHub closed
 issues](https://img.shields.io/github/issues-closed-raw/selkamand/easydb)
 [![Download
 Stats](http://cranlogs.r-pkg.org/badges/easydb)](https://cran.r-project.org/package=easydb)
-“[![Download Grand
-Total](http://cranlogs.r-pkg.org/badges/last-month/grand-total)](https://cran.r-project.org/package=grand-total)”
+[![Download Grand
+Total](http://cranlogs.r-pkg.org/badges/grand-total/easydb)](https://cran.r-project.org/package=easydb)
 <!-- badges: end -->
 
 The goal of easydb is to simplify the process of connecting to databases
